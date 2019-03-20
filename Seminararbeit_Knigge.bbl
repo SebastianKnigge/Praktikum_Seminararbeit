@@ -1,0 +1,23 @@
+\begin{thebibliography}{}
+
+\bibitem[Becker, 2012]{Becker2012}
+Becker, H.~P. (2012).
+\newblock {\em Investition und Finanzierung}.
+\newblock 5. Gabler.
+
+\bibitem[B{\"o}rse, 2018]{boersewien2019}
+B{\"o}rse, W. (2018).
+\newblock B{\"o}rsenfeiertage der wiener b{\"o}rse 2019.
+
+\bibitem[Hull, 2011]{Hull}
+Hull, J.~C. (2011).
+\newblock {\em Options, futures, and other derivatives}.
+\newblock Prentice Hall, 8th edition.
+
+\bibitem[Longstaff and Schwartz, 2001]{schwartz2001}
+Longstaff, F.~A. and Schwartz, E.~S. (2001).
+\newblock Valuing american options by simulation: A simple least-squares
+  approach.
+\newblock {\em The Society for Financial Studies}, 14(1):113--147.
+
+\end{thebibliography}
