@@ -7,9 +7,10 @@
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{float}
+\usepackage{hyperref}
 \usepackage{acronym}
-\author{\makebox[.9\textwidth]{Sebastian Knigge, BSc BSc}\\ Universität Wien \and Betreuer \\ Dipl.-Ing. Martin Glanzer \\Department of Statistics and Operations Research\\ Universität Wien }
-\title{Seminararbeit}
+\author{\makebox[.9\textwidth]{Sebastian Knigge, BSc BSc}\\ Universität Wien \and \textit{Betreuer} \\ Dipl.-Ing. Martin Glanzer \\Department of Statistics and Operations Research\\ Universität Wien }
+\title{SEMINARARBEIT\\[3mm] \normalsize{Kurs: 040774 PR}}
 
 
 
@@ -21,10 +22,13 @@
 
 \section*{Abkürzungsverzeichnis}
 \begin{acronym}[m.a.W....]
+  \acro{D.h.}{das heißt}
  \acro{LSM}{Least Squares Monte Carlo}
  \acro{bspw.}{bespielsweise}
  \acro{m.a.W.}{mit anderen Worten}
+ \acro{s.}{siehe}
  \acro{sog.}{sogenannt/e/s}
+ \acro{vgl.}{vergleiche}
  \acro{ZP}{Zeitpunkt}
 \end{acronym}
 
@@ -32,13 +36,13 @@
 \chapter{Theoretische Grundlagen und Hintergr"unde}
 
 \section{Optionen und reden Bewertung}
-Diese Arbeit behandelt die Bewertung von Optionen - im Speziellen amerikanischen Put Optionen.
+Diese Arbeit behandelt die Bewertung von Optionen - im Speziellen amerikanische Put Optionen.
 Dem Leser soll aber zunächst ein Überblick über die verschiedenen Arten von Optionen und deren Wesen verschafft werden.\\
-Hans Becker beschreibt in "Investitionen und Finanzierung" Optionen als \glqq bedingte Termingeschäfte" (s. S313 \cite{Becker2012}) weil eine Option im Gegensatz zu einem Forward oder Future für den Käufer des Finanztitels nur ein Recht, aber keine Pflicht auf Ausübung des Geschäftes einräumt. Ein Käufer hält eine Position in der \glqq long position"\ ein Verkäufer in der \glqq short position". Klarerweise ist - je nach dem um welche Partei es sich handelt -  die Auszahlung der Option unterschiedlich.\\
-Weiters gibt es zwei Grundtypen vom Optionen. Kaufoptionen, sog. \glqq calls"\ und Verkaufsoptionen, sog. \glqq puts". Weitere wichtige Begriffe im Zusammenhang mit Optionen sind der Basiswert oder das \glqq underlying", also der zugrundeliegende Stock (Aktie), im Falle einer Aktienoption. und der Basispreis oder auch \glqq strike price". Für eine \glqq Europäische"\ Verkaufsoption bspw. hat der Käufer das Recht das underlying zu 
-einem festgelegten Zeitpunkt zu verkaufen, für den Verkäufer, der also die Option in short position hält, besteht die Pflicht das Basisprodukt zu diesem Zeitpunkt zu kaufen, falls die Option vom Käufer ausgeführt wird.\\
-Es gibt eine weitere Unterscheidung von Optionen Hinsichtlich des Ausübungs-zeitpunktes (\glqq expiration date"). Man unterscheidet in \glqq Europäische\grqq und \glqq Amerikanische"\ Optionen. Europäische Optionen dürfen ausschließlich zum expiration date ausgeführt werden, wohingegen Amerikanische Optionen zu jedem Zeitpunkt bis zum expiration date ausgeführt werden können (vgl. S7 \cite{Hull}).\\
-Wie erwähnt soll in dieser Arbeit der Fokus auf einer amerikanischen put Option in long position liegen. Für so eine Option kann im Ausübungszeitpunkt, der vorher freilich nicht bekannt ist die Auszahlung wie im folgenden Plot gezeichnet werden (s. Abbildung \ref{fig:PlotOption}).
+Hans Becker beschreibt in \glqq Investitionen und Finanzierung \grqq Optionen als \glqq bedingte Termingeschäfte \grqq \cite[S.313]{Becker2012} weil eine Option im Gegensatz zu einem Forward oder Future für den Käufer des Finanztitels nur ein Recht, aber keine Pflicht auf Ausübung des Geschäftes einräumt. Ein Käufer hält eine Position in der \textit{long position}  ein Verkäufer in der \textit{short position}. Klarerweise ist - je nach dem um welche Partei es sich handelt -  die Auszahlung der Option unterschiedlich.\\
+Weiters gibt es zwei Grundtypen von Optionen. Kaufoptionen, sog. \textit{calls} und Verkaufsoptionen, sog. \textit{puts}. Weitere wichtige Begriffe im Zusammenhang mit Optionen sind der Basiswert oder das \glqq underlying", also der zugrundeliegende Stock (Aktie), im Falle einer Aktienoption, und der Basispreis oder auch \textit{strike price}. Für eine \glqq Europäische"\ Verkaufsoption bspw. hat der Käufer das Recht das underlying zu 
+einem festgelegten Zeitpunkt zu verkaufen, für den Verkäufer, der die Option in short position hält, besteht die Pflicht das Basisprodukt zu diesem Zeitpunkt zu kaufen, falls die Option vom Käufer ausgeführt wird.\\
+Es gibt eine weitere Unterscheidung von Optionen hinsichtlich des Ausübungs-zeitpunktes (\textit{expiration date}). Man unterscheidet in \glqq europäische\grqq und \glqq amerikanische"\ Optionen. Europäische Optionen dürfen ausschließlich zum \textit{expiration date} ausgeführt werden, wohingegen Amerikanische Optionen zu jedem Zeitpunkt bis zum \textit{expiration date}  ausgeführt werden können (vgl.\cite{Hull}, S.7).\\
+Für eine amerikanische put Option kann im Ausübungszeitpunkt, der vorher freilich nicht bekannt ist, die Auszahlung wie im folgenden Plot gezeichnet werden (s. Abbildung \ref{fig:PlotOption}).
 
 \begin{figure}[H]
   \centering
@@ -47,14 +51,13 @@ Wie erwähnt soll in dieser Arbeit der Fokus auf einer amerikanischen put Option
   \caption{Auszahlung einer Put Option mit strike 1.1}
 \end{figure}
 
-Für eine europäische Option, bei der der Ausübungszeitpunkt bekannt ist, ist die Bewertung der Option mittels Black-Scholes in geschlossener Form möglich. Hierbei wird die Differentialgleichung des Black-Scholes Modells gelöst und unter Zuhilfenahme eines Maßwechsels folgt eine einfache, geschlossene Formel. Diese ist in \cite{Hull} auf S313 zu finden. Weiters führt Hull auch eine Skizze zur Herleitung an.\\
-Die Schwierigkeit bei der Berwertung Amerikanischer Optionen besteht darin, dass der Aus-übungszeitpunkt nicht bekannt ist. Der K"aufer der Option muss also zu jedem Zeitpunkt abwägen ob die Option ausgeübt werden sollt, oder ob die Alternative d.h. die Beibehaltung der Option und eine spätere Aus"ubung sinvoller ist. Es wird also in jedem Zeitpunkt der Auszahlungsbetrag bei Aus"ubung und der Erwartungswert bei Beibehaltung verglichen (vgl.  \cite[S.114]{schwartz2001}). Longstaff und Schwartz schätzen diesen bedingten Erwartungswert durch die \glqq fitted values \grqq - also die geschätzten Werte - einer Regression, der Stock prices auf die ex-post Auszahlungen "uber alle Simulationen.
+Für eine europäische Option, bei welcher der Ausübungszeitpunkt bekannt ist, ist die Bewertung der Option mittels Black-Scholes in geschlossener Form möglich. Hierbei wird die Differentialgleichung des Black-Scholes Modells gelöst, unter Zuhilfenahme eines Maßwechsels folgt eine einfache, geschlossene Formel. Diese ist in \cite{Hull} auf S.313 zu finden. Weiters führt Hull auch eine Skizze zur Herleitung an.\\
+Die Schwierigkeit bei der Bewertung amerikanischer Optionen besteht darin, dass der Ausübungszeitpunkt nicht bekannt ist. Der K"aufer der Option muss also zu jedem Zeitpunkt abwägen, ob die Option ausgeübt werden soll, oder ob die Alternative d.h. die Beibehaltung der Option und eine spätere Aus"ubung sinvoller ist. Es wird also zu jedem Zeitpunkt der Auszahlungsbetrag bei Aus"ubung und der Erwartungswert bei Beibehaltung verglichen (vgl.  \cite[S.114]{schwartz2001}). Longstaff und Schwartz schätzen diesen bedingten Erwartungswert durch die \textit{fitted values} - also die geschätzten Werte - einer Regression, der \textit{stock} prices auf die ex-post Auszahlungen "uber alle Simulationen.
 
 
 \section{Beispiel}
-
-Folgendes Beispiel soll helfen den Least Squares Monte Carlo (LSM) Algorithmus zu veranschaulichen. In diesem Beispiel soll eine Amerikanische Put-Option (in long position) bewertet werden. Der aktuelle Preis sei normiert und liegt bei 1. Der Strike Preis (i.e. Aus"ubungspreis der Option) bei $K=1.1$. Man gehe weiters davon aus, dass die Option j"ahrlich ausge"ubt werden kann und eine Laufzeit von 4 Jahren hat.\\
-Im ersten Schritt werden sog. Pfade simuliert. Hierbei handelt es sich um den Preis des Underlyings. Die Anzahl der Pfade ist dabei beliebig. Um das Beispiel "ubersichtlich zu gestalten werden wir hier nur 10 Pfade simulieren. Jeder Pfad hat die L"ange 4, denn wir simulieren f"ur die gesamte Laufzeit der Option.\\
+Folgendes Beispiel soll helfen den Least Squares Monte Carlo (LSM) Algorithmus zu veranschaulichen. In diesem Beispiel soll eine amerikanische Put-Option (in long position) bewertet werden. Der aktuelle Preis sei normiert und liegt bei 1. Der Strike Preis (i.e. Aus"ubungspreis der Option) bei $K=1.1$. Man gehe weiters davon aus, dass die Option j"ahrlich ausge"ubt werden kann und eine Laufzeit von 4 Jahren hat.\\
+Im ersten Schritt werden sog. Pfade simuliert. Hierbei handelt es sich um den Preis des Underlyings. Die Anzahl der Pfade ist dabei beliebig. Um das Beispiel "ubersichtlich zu gestalten, werden wir hier nur 10 Pfade simulieren. Jeder Pfad hat die L"ange 4, denn wir simulieren f"ur die gesamte Laufzeit der Option.\\
 
 
 Tabelle \ref{tab:M} enth"alt die Matrix der Simulationen des Underlyings. Ein Plot der Pfade findet sich in Abbildung \ref{fig:pfade}.
@@ -97,7 +100,7 @@ K <- 1.10
 abline(h=K, lwd=3, col="darkgrey")
 @
 \label{fig:pfade}
-\caption{Plot der sumulierten 10 Pfade; Strikepreis in grau eingezeichnet}
+\caption{Plot der simulierten 10 Pfade; Strikepreis in grau eingezeichnet}
 \end{figure}
 
 LSM ist ein rekursiver Algorithmus \cite[S.116]{schwartz2001}. D.h. wir beginnen die Iterationen mit dem Laufzeitende (hier t=4). Die Auszahlung am Laufzeitende f"ur eine Put Option berechnet sich mit $A_T=max(K-x_T, 0)$ (allgmein $A_t=max(K-x_t, 0)$, wobei $x_t$ der Preis des Underlyings mit $t\in\{1,...,T\}$).
@@ -109,14 +112,14 @@ Ai <- matrix(NA, nrow=N, ncol=T+1)
 lapply(M[,T+1],function(x) max(K-x,0))  %>% unlist -> Ai[,T+1]
 colnames(Ai) <- paste0("t", 0:T)
 rownames(Ai) <- 1:N
-stargazer(Ai, summary=FALSE, header=FALSE, label="tab:A", title="Auszahlungsmatrix im Zeitpunkt t=4",table.placement ="H")
+stargazer(Ai, summary=FALSE, header=FALSE, label="tab:A", title="Auszahlungsmatrix zum Zeitpunkt t=4",table.placement ="H")
 @
 
-Nun gilt es die erwarteten Auszahlungen der Option in $t=4$ zu sch"atzen, ausgehend von den simulierten Preisen des Unterlyings im Zeitpunkt $t=3$. Um den Zeitwert der Auszahlungen zu ber"ucksichtigen wird um eine Periode abgezinst. I.e. die auf den Zeitpunkt t um eine Periode abgezinste Auszahlung $A_t(-1)$ bei einem Zinssatz r berechnet sich aus der Auszahlung $A_t$ wie folgt:  
+Nun gilt es die erwarteten Auszahlungen der Option in $t=4$ zu sch"atzen, ausgehend von den simulierten Preisen des Underlyings zum Zeitpunkt $t=3$. Um den Zeitwert der Auszahlungen zu ber"ucksichtigen, wird um eine Periode abgezinst. I.e. die auf den Zeitpunkt t um eine Periode abgezinste Auszahlung $A_t(-1)$ bei einem Zinssatz $r$ berechnet sich aus der Auszahlung $A_t$ wie folgt:  
 \[A_t(-1)=A_t*exp(-r)\] 
-Um den Erwartungswert in Abh"angigkeit vom Simulierten Underlying zu sch"atzen, verwenden wir folgendes lineares Modell.
+Um den Erwartungswert in Abh"angigkeit vom simulierten Underlying zu sch"atzen, verwenden wir das folgende lineare Modell:
 \[  y_i=x_i* \beta_1 +x_i^2* \beta_2 +u_i \]
-wobei $y_i$ $A_t(-1)$ des jeweiligen Pfades $i=1,...10$ und $x_i$ der Preis des undelyings $x_t$ des jeweiligen Pfades. F"ur den ersten Regressionschritt ist $t=3$ in unserem Beispiel.\\
+wobei $y_i$ $A_t(-1)$ des jeweiligen Pfades $i=1,...10$ und $x_i$ der Preis des undelyings $x_t$ des jeweiligen Pfades. F"ur den ersten Regressionsschritt ist $t=3$ in unserem Beispiel.\\
 In der Tabelle \ref{tab:R3} sind die Daten f"ur die Regression zusammengefasst. Es werden nur die Pfade verwendet, bei denen die Option in $t=3$ ausgef"uhrt w"urde, also bei denen es in $t=3$ einen Cash Flow gibt (m.a.W. in the money).
 
 <<eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE,results='asis'>>=
@@ -143,7 +146,7 @@ stargazer(df, summary=FALSE, header=FALSE, label="tab:AB", title="Vergleiche Aus
 
 @
 
-Beim Vergleich der Werte in Tabelle \ref{tab:AB} sollte jeweils in t=3 ausge"ubt werden, wenn Aus"uben$>$Beibehalten und umgekehrt. Es f"allt auf, dass zu t=3 in allen Pfaden, die in the money sind (also 1,2,4,5,8 und 9) ausge"ubt werden soll. An diesen Pfaden "ubernehmen wir den Wert in die Auszahlungsmatrix und setzen den Wert in t=4 auf null, weil die Amerikanische Option nur einmal ausge"ubt werden kann.
+Beim Vergleich der Werte in Tabelle \ref{tab:AB} sollte jeweils in t=3 ausge"ubt werden, wenn Aus"uben$>$Beibehalten und umgekehrt. Es f"allt auf, dass zu t=3 in allen Pfaden, die \textit{in the money} sind (also 1,2,4,5,8 und 9) ausge"ubt werden soll. An diesen Pfaden "ubernehmen wir den Wert in die Auszahlungsmatrix und setzen den Wert in t=4 auf null, weil die amerikanische Option nur einmal ausge"ubt werden kann.
 
 <<eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE,results='asis'>>=
 Ai[,T] <- 0
@@ -151,10 +154,10 @@ ind2 <- apply(df,1, function(x) ifelse(x[2]>x[1], x[2], 0))
 Ai[ind,T] <- ind2
 # nachfolgende null setzen
 Ai[,T+1][Ai[,T]!=0] <- 0
-stargazer(Ai, summary=FALSE, header=FALSE, label="tab:A3", title="Auszahlungsmatrix im Zeitpunkt t=3",table.placement ="H")
+stargazer(Ai, summary=FALSE, header=FALSE, label="tab:A3", title="Auszahlungsmatrix zum Zeitpunkt t=3",table.placement ="H")
 @
 
-Nun modellieren wir eine linieare Regression wie oben mit den Preisen des Underlying zu $t=2$ als X. Y sei der vorausgegangene Wert der Option bei Aus"ubung, abgezinst auf den Zeitpunkt $t$.
+Nun modellieren wir eine lineare Regression wie oben mit den Preisen des \textit{underlying} zu $t=2$ als X. Y sei der vorausgegangene Wert der Option bei Aus"ubung, abgezinst auf den Zeitpunkt $t$.
 
 <<eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE,results='asis'>>=
 #### ZUM ZEITPUNKT t = 2
@@ -172,7 +175,7 @@ df <- data.frame(beibehalten=f1, ausueben=im)
 stargazer(df, summary=FALSE, header=FALSE, label="tab:AB2", title="Vergleiche Ausueben vs. Beibehalten im ZP t=2",table.placement ="H")
 @
 
-Im ZP t=2 wird nur im den Pfad 8 ausge"ubt, ansonsten wird beibahalten. Das f"uhrt zur Auszahlungsmatrix Tabelle \ref{tab:A2}.
+Im ZP $t=2$ wird nur im Pfad 8 ausge"ubt, ansonsten wird beibehalten. Das f"uhrt zur Auszahlungsmatrix Tabelle \ref{tab:A2}.
 
 <<eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE,results='asis'>>=
 Ai[,T-1] <- 0
@@ -180,10 +183,10 @@ ind2 <- apply(df,1, function(x) ifelse(x[2]>x[1], x[2], 0))
 Ai[ind,T-1] <- ind2
 # nachfolgende null setzen
 Ai[,T][Ai[,T-1]!=0] <- 0
-stargazer(Ai, summary=FALSE, header=FALSE, label="tab:A2", title="Auszahlungsmatrix im Zeitpunkt t=2",table.placement ="H")
+stargazer(Ai, summary=FALSE, header=FALSE, label="tab:A2", title="Auszahlungsmatrix zum Zeitpunkt t=2",table.placement ="H")
 @
 
-F"ur den letzten Schritt t=1 verfahren wir genauso.
+F"ur den letzten Schritt $t=1$ verfahren wir genauso.
 
 <<eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE,results='asis'>>=
 #### ZUM ZEITPUNKT t = 1
@@ -206,7 +209,7 @@ Ai[,T-1][Ai[,T-2]!=0] <- 0
 stargazer(Ai, summary=FALSE, header=FALSE, label="tab:A1", title="Auszahlungsmatrix im Zeitpunkt t=1",table.placement ="H")
 @
 
-Im ZP t=0 kann die Option nicht ausge"ubt werden, deswegen ist t=0 irrelevant. Die Auszahlungen der Option werden jeweils auf den Zeitpunkt t=0 diskontiert.
+ZUm ZP $t=0$ kann die Option nicht ausge"ubt werden, weshalb ZP $t=0$ irrelevant ist. Die Auszahlungen der Option werden jeweils auf den Zeitpunkt t=0 diskontiert.
 
 <<eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE,results='asis'>>=
 Ai <- Ai[,1:T+1]
@@ -234,24 +237,25 @@ temp <- multM(Ai, abzins)
 mean(temp) %>% round(3) -> p
 cat(p)
 @
+.
 
 \chapter{Anwendung}
 
 Angenommen man möchte nun LSM auf eine amerikanische Put Option anwenden. Zum Stock (dem Underlying der Option) sei der Mittelwert und die Varianz bekannt. Wir gehen in diesem Fall von einer Laufzeit von einem Jahr und einem strike price von 1.1 aus. Innerhalb dieses Jahres, kann die Option zu jedem Handelstag ausgeübt werden. 
-Zur Bepreisung dieser Option müssen wir nun in einem ersten Schritt ausreichend viele Trajektorien über den Zeitraum der Laufzeit hinweg simulieren. Dann, lässt sich LSM auf diese Simulation anweden. 
+Zur Bepreisung dieser Option müssen wir nun in einem ersten Schritt ausreichend viele Trajektorien über den Zeitraum der Laufzeit hinweg simulieren. Anschließend lässt sich LSM auf diese Simulation anwenden. 
 
-Bemerkung: LSM ist eine Heuristik ausschließlich gedacht zur Ermittlung eines fairen Preises einer Option, nicht zur Berechnung des optimalen Ausübungszeitpunktes.
+Bemerkung: LSM ist eine Heuristik ausschließlich gedacht zur Ermittlung eines fairen Preises einer Option, nicht zur Berechnung des optimalen Ausübungs-zeitpunktes.
 
 \section{Simulation via Black-Scholes}
 
-F"ur diese Arbeit sollen die Preise anhand des Black-Scholes Modells Stockpreise für ein Jahr simuliert werden. Man gehe von einem B"orsenjahr aus. D.h. für 2019: 252 Handelstage \cite[]{boersewien2019}.\\
-Man gehe davon aus, dass ein Stock zum ersten B"orsentag mit dem Preis $S_0$ startet. Hier sei $S_0=1$. Der risikofreie Zinssatz $r$ betrage 1\%. Der Wiener Prozess zur Simulation der Black Scholes Stock Preise sei mit dem Parameter $\mu=0$ für alle Trajektorien spezifiziert. Für jede Trajektorie sind die Parameter $\sigma$ und $\mu$ des Wiener Prozess gleich und stammen von den geschätzten Parametern des stocks (i.e. $\sigma \equiv \sqrt{\hat{\sigma^2}}$ ... Schätzer für Volatilität und $\mu \equiv \hat{\mu}$ ... Schätzer für den Drift). Damit ergibt sich ein Prozess mit Martingaleigenschaft:
+F"ur diese Arbeit sollen die Preise anhand des Black-Scholes Modells Stockpreise für ein Jahr simuliert werden. Man gehe von einem B"orsenjahr aus, d.h. für 2019 252 Handelstage \cite[]{boersewien2019}.\\
+Man gehe davon aus, dass ein Stock zum ersten B"orsentag mit dem Preis $S_0$ startet. Hier sei $S_0=1$. Der risikofreie, jährliche Zinssatz $r$ betrage 1\%. Der Wiener Prozesses zur Simulation der Black Scholes Stock Preise sei mit dem Parameter $\mu=0$ für alle Trajektorien spezifiziert. Für jede Trajektorie sind die Parameter $\sigma$ und $\mu$ des Wiener Prozess gleich und stammen von den geschätzten Parametern des stocks (i.e. $\sigma \equiv \sqrt{\hat{\sigma^2}}$ ... Schätzer für Volatilität und $\mu \equiv \hat{\mu}$ ... Schätzer für den Drift). Damit ergibt sich ein Prozess mit Martingaleigenschaft:
 
 $$S^*(t)=S_0 exp\left\{  (r-\frac{\sigma^2}{2})t + \sigma W_t\right\}$$
 
 Wobei $W_t$ ein Wiener Prozess mit Drift $\mu$ und Varianz $\sigma^2$ ist.
 
-In der Abbildung \ref{fig:pfade252} ist exemplarisch ein Plot mit 15 Pfaden angeführt.
+In der Abbildung \ref{fig:pfade252} ist exemplarisch ein Plot mit 10 Pfaden angeführt.
 <<eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE,results='asis'>>=
 simMatrix <- function(S0=100, Nsimulations=100, r=0.01, sigma=0.2, se=123){
   # simMatrix is a function, simulating a Matrix of stock
@@ -293,13 +297,13 @@ simMatrix <- function(S0=100, Nsimulations=100, r=0.01, sigma=0.2, se=123){
 M2 <- simMatrix(S0=1, Nsimulations=10, se=1234)
 matplot(t(M2), type="l", lty=1, ylab="price underlying", xlab="t")
 @
-\caption{Plot einer Simulation von 15 Pfaden "uber 252 Tage}
+\caption{Plot einer Simulation von 10 Pfaden "uber 252 Tage}
 \label{fig:pfade252}
 \end{figure}
 
-Es soll überprüft werden, ob der simulierte Prozess tatsächlich ein Martingal darstellt. Angenommen ein Prozess $(X_t)_{t\geq 1}$ sei integrierbar und adaptiert (d.h. $\mathcal{F}_n$ meßbar f"ur alle $n \in \mathbb{N}$, wobei $\mathcal{F}_n$ eine Filtration zum ZP $n$). Dann ist der Prozess ein Martingal wenn er die folgende Martingaleigenschaft erfüllt:
+Es soll überprüft werden, ob der simulierte Prozess tatsächlich ein Martingal darstellt. Angenommen ein Prozess $(X_t)_{t\geq 1}$ sei integrierbar und adaptiert (d.h. $\mathcal{F}_n$ meßbar f"ur alle $n \in \mathbb{N}$, wobei $\mathcal{F}_n$ eine Filtration zum ZP $n$). Der Prozess nur dann ein Martingal, wenn folgende Martingaleigenschaft erfüllt ist:
 \[ \mathbb{E}[X_{t+1}| \mathcal{F}_t]=X_t \ \ f.s.\ \ \forall t \in \mathbb{N}\]
-Für unseren simulierten Fall würde das bedeuten, dass der Prozess einen konstanten, diskontierten Erwartungswert hat, was es zu "uberpr"ufen gilt. Im Folgenden wird also der Erwartungswert für alle $t$ durch das arithmetische Mittel geschätzt. Um validere Ergebnisse zu erhalten sollen nun 1000 Pfade simuliert werden (Plot im Appendix Abbildung \ref{100P}). Der Plot in Abbildung \ref{EWfig} zeigt die Sch"atzer für alle Beobachtungen. 
+Für unseren simulierten Fall würde das bedeuten, dass der Prozess einen konstanten, diskontierten Erwartungswert hat, was es zu "uberpr"ufen gilt. Im Folgenden wird also der Erwartungswert für alle $t$ durch das arithmetische Mittel geschätzt. Um validere Ergebnisse zu erhalten, sollen nun 1000 Pfade simuliert werden (Plot im Appendix Abbildung \ref{100P}). Der Plot in Abbildung \ref{EWfig} zeigt die Sch"atzer für alle Beobachtungen. 
 
 \begin{figure}[H]
 <<eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE,results='asis'>>=
@@ -308,9 +312,9 @@ M3 <- simMatrix(S0=1, Nsimulations=1000, se=1234)
 M3means <- colMeans(M3)
 # der jährliche zinssatz beträgt 1%
 r <- 0.01
-# wir berechnen den täglichen unterjährigen Zins Abzinsungsfaktor
+# wir berechnen den täglichen, also unterjährigen Abzinsungsfaktor
 AZFu <- exp(log(1+0.01)/252)
-# bemerkung: rday=AZFu-1
+# Bemerkung: rday=AZFu-1
 ru <- AZFu-1
 EW <- M3means/((AZFu)^(0:(length(M3means)-1)))
 M3means <- data.frame(t=1:252, means=EW)
@@ -329,7 +333,7 @@ Der Plot der Mittel in Abbildung \ref{EWfig} st"utzt die Annahme, dass der Erwar
 
 \section{Anwendung von LSM auf simulierte Preise}
 
-Nun wollen wir LSM auf die simulierten Preise anweden um einen fairen Preis für die Option zu berechnen. Dazu soll die Funktion \textit{LSM()} (s. Appendix) dienen, die die simulierte Matrix als Argument übernimmt. 
+Nun wollen wir LSM auf die simulierten Preise anwenden um einen fairen Preis für die Option zu berechnen. Dazu soll die Funktion \textit{LSM()} (s. Appendix) dienen, welche die simulierte Matrix als Argument übernimmt. 
 
 <<eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE,results='asis'>>=
 LSM <- function(M, K=1.1, r=0.06){
@@ -378,14 +382,53 @@ Der gemittelte Ertrag pro Ausübung beträgt nach LSM
 GE <- LSM(M=M3, r=ru)
 cat(round(GE,3))
 @
+.
 
 \ \\
-Wir haben im einführenden Beispiel und für den LSM Algorithmus oben ein Polynom 2. Grades für das lineare Modell gewählt. Nun stellt sich die Frage: wie unterschiedlich sind die Ergebnisse für verschiedene Modelle?\\
-Weil es diese Arbeit im Umfang nicht zulässt alle möglichen Modelle zu evaluieren, möchte ich im Folgenden nur eine Übersicht über einige wenige ALternativen geben. Interessant ist möglicherweise der Vergleich zu einem einfachen linearen Modell ohne Transformation, einem linearen Modell mit einer Transformation zu einem Polynom dritten Grades, und eines mit einem Polynom 10ten Grades. 
+Wir haben im einführenden Beispiel und für den LSM Algorithmus oben ein Polynom 2. Grades für das lineare Modell gewählt. Nun stellt sich die Frage: Wie unterschiedlich sind die Ergebnisse für verschiedene Modelle?\\
+Weil es diese Arbeit im Umfang nicht zulässt alle möglichen Modelle zu evaluieren, möchte ich im Folgenden nur eine Übersicht über einige wenige ALternativen geben. Interessant ist möglicherweise der Vergleich mit dem einfachen einfachen Mittelwert (Mittelwertmodell), einem einfachen linearen Modell ohne Transformation, einem linearen Modell mit einer Transformation zu einem Polynom dritten Grades, und einem Modell mit einem Polynom 10ten Grades. 
 
 Bemerkung: Diese Modelle sind willkürlich gewählt und sollen dem Leser nur einen Überblick vermitteln.
 
 <<eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE,results='asis'>>=
+LSM0 <- function(M, K=1.1, r=0.06){
+  # This function performs the Least Squares Monte Carlo
+  # algorithm for any simulated matrix M. The output
+  # is the mean of the discounted cash flow of returns 
+  # where the option was exercised.
+  # M ... simulated matrix
+  # K ... strike price
+  # r ... interest rate
+  T <- ncol(M)
+  t <- T-1
+  N <- nrow(M)
+  Ai <- matrix(0, nrow=N, ncol=T)
+  lapply(M[,t+1],function(x) max(K-x,0))  %>% unlist -> Ai[,t+1]
+  
+  for (t in (T-1):2){
+    lapply(M[,t],function(x) max(K-x,0))  %>% unlist %>% Filter(f=function(x) x!=0)-> im
+    names(im) %>% as.numeric() -> ind
+    Y <- rep(0,length(ind))
+    for (i in 1:(T-t)){
+      Y <- Y+exp(-r*i)*Ai[ind,t+i]
+    }
+    X <- im
+    f1 <- rep(mean(Y), length(im))
+    # exercise vs keep
+    df <- data.frame(beibehalten=f1, ausueben=im)
+    ind2 <- apply(df,1, function(x) ifelse(x[2]>x[1], x[2], 0))
+    Ai[ind,t] <- ind2
+    # set all following to 0
+    Ai[Ai[,t]!=0,(t+1):T] <- 0
+  }
+  
+  Ai <- Ai[,2:T]
+  Y <- rep(0,N)
+  for (i in 1:(T-1)){
+    Y <- Y+exp(-r*i)*Ai[,i]
+  }
+  return(mean(Y))
+}
 LSM1 <- function(M, K=1.1, r=0.06){
   # This function performs the Least Squares Monte Carlo
   # algorithm for any simulated matrix M. The output
@@ -507,15 +550,17 @@ LSM10 <- function(M, K=1.1, r=0.06){
 
 
 <<eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE,results='asis', cache=TRUE>>=
+GE0 <- LSM0(M=M3, r=ru)
 GE1 <- LSM1(M=M3, r=ru)
 GE3 <- LSM3(M=M3, r=ru)
 GE10 <- LSM10(M=M3, r=ru)
 
-DF <- data.frame(Modell=c("einfach","Polynom 2", "Polynom 3", "Polynom 10"), Optionspreis=c(GE1,GE,GE3,GE10))
-stargazer(DF, summary=FALSE, type="latex", digits=6)
+
+DF <- data.frame(Modell=c("Mittelwertmodell","einfach","Polynom 2", "Polynom 3", "Polynom 10"), Optionspreis=c(GE0,GE1,GE,GE3,GE10))
+stargazer(DF, summary=FALSE, type="latex", digits=5, title="Übersicht der simulierten Optionspreise auf Grundlage unterschiedlicher Modelle")
 @
 
-Wir beobachten, dass die Optionspreise ident sind. Es ist nicht mit Sicherheit zu sagen, woran das liegt, aber es liegt nahe, dass die Information der simulierten Werte ausreicht, um selbst mit dem einfachen linearen Modell an den selben Zeitpunkten entscheidet auszuüben, wie auch bei den koplexeren Modellen.
+Wir beobachten, dass die Optionspreise für die linearen Modelle ident sind. Es ist nicht mit Sicherheit zu sagen, woran das liegt, aber der Schluss liegt nahe, dass die Information der simulierten Werte ausreicht, um selbst mit dem einfachen linearen Modell an den selben Zeitpunkten entscheidet auszuüben, wie auch bei den koplexeren Modellen. Das Mittelwertmodell hingegen, lässt den Algorithmus an deutlich anderen Zeitpunkten ausüben was wiederum zu anderen Auszahlungen und in weiterer Folge zu einem anderen Optionspreis führt.
 
 \bibliography{SeminararbeitBiBTex}
 \bibliographystyle{apalike}
@@ -618,5 +663,8 @@ LSM <- function(M, K=1.1, r=0.06){
 }
 @
 
+
+Der gesamte Code ist in folgendem Git \textit{repository} zu finden:
+\url{https://github.com/SebastianKnigge/Praktikum_Seminararbeit}
 
 \end{document}
